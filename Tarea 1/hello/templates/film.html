@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>Tarea 1</h1>
+  </div>
+
+
+</div>
+<h1> {{ info.title }} </h1>
+<body>
+    <p>Opening crawl: {{info.opening_crawl}}</p>
+    <p>Episode id: {{info.episode_id}}</p>
+    <p>Director: {{info.director}}</p>
+    <p>Producer: {{info.producer}}</p>
+    <p>Release date: {{info.release_date}}</p>
+        <table>
+            <tr>
+                <th>Characters</th>
+            </tr>
+            <ul>
+            {% for k in characters %}
+                <tr>
+                    <td><a href="/characters/?info={{ k }}"> {{k.name}}</a></td>
+                </tr>
+            {% endfor %}
+            </ul>
+        </table>
+        <table>
+            <tr>
+                <th>Planets</th>
+            </tr>
+            <ul>
+            {% for j in planets %}
+                <tr>
+                    <td><a href="/planets/?info={{ j }}"> {{j.name}}</a></td>
+                </tr>
+            {% endfor %}
+            </ul>
+        </table>
+        <table>
+            <tr>
+                <th>Starships</th>
+            </tr>
+            <ul>
+            {% for i in starships %}
+                <tr>
+                    <td><a href="/starships/?info={{ i }}"> {{i.name}}</a></td>
+                </tr>
+            {% endfor %}
+            </ul>
+        </table>
+    <p>Created: {{info.created}}</p>
+    <p>Edited: {{info.edited}}</p>
+    <p>URL: {{info.url}}</p>
+</body>
+
+{% endblock %}

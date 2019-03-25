@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>Tarea 1</h1>
+  </div>
+
+
+</div>
+
+
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Director</th>
+        <th>Producer</th>
+        <th>Release date</th>
+        <th>Episode id</th>
+    </tr>
+    <ul>
+    {% for k in data %}
+        <tr>
+
+            <td><a href="/film/?info={{ k }}"> {{k.title}}</a></td>
+            <td>{{k.director}}</td>
+            <td>{{k.producer}}</td>
+            <td>{{k.release_date}}</td>
+            <td>{{k.episode_id}}</td>
+        </tr>
+    {% endfor %}
+    </ul>
+</table>
+
+<body>
+    <form action="/search/" method="post">
+    {% csrf_token %}
+     <fieldset>
+     <legend> Search bar</legend>
+     <label for="name">Search:<br></label>
+     <input type="text" name="input" id="name"><br>
+     <input type="submit" value="submit">
+     </fieldset>
+</body>
+
+{% endblock %}
