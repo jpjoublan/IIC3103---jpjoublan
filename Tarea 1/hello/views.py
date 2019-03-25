@@ -120,14 +120,34 @@ def search(request):
         data = requests.get("https://swapi.co/api/films/").json()['results']
         return render(request, 'tarea1.html', {"data": data})
     else:
+        ## OPCION 1
+
+        # films = []
+        # for i in range(1, 8):
+        #     link = "https://swapi.co/api/films/{}".format(str(i))
+        #     film = requests.get(link).json()
+        #     if searched.lower() in film['title'].lower():
+        #         del film['vehicles']
+        #         del film['species']
+        #         films.append(film)
+
+
+        ## OPCION 2
+
+        films_info = requests.get("https://swapi.co/api/films/").json()['results']
         films = []
-        for i in range(1, 8):
-            link = "https://swapi.co/api/films/{}".format(str(i))
-            film = requests.get(link).json()
-            if searched.lower() in film['title'].lower():
+        count_f = 1
+        for i in films_info:
+            if searched.lower() in i['title'].lower():
+                link = "https://swapi.co/api/films/{}".format(str(count_f))
+                film = requests.get(link).json()
                 del film['vehicles']
                 del film['species']
                 films.append(film)
+            count_f += 1
+
+        ## OPCION 1
+
         characters = []
         for j in range(1, 88):
             try:
@@ -137,6 +157,23 @@ def search(request):
                     characters.append(character)
             except:
                 pass
+
+        ## OPCION 2
+
+        # characters_info = requests.get("https://swapi.co/api/people/").json()['results']
+        # characters = []
+        # count_c = 1
+        # for j in characters_info:
+        #     try:
+        #         if searched.lower() in j['name'].lower():
+        #             link = "https://swapi.co/api/people/{}".format(str(count_c))
+        #             character = requests.get(link).json()
+        #             characters.append(character)
+        #     except:
+        #         pass
+        #     count_c += 1
+
+
         starships = []
         for k in range(1, 38):
             try:
@@ -146,16 +183,33 @@ def search(request):
                     starships.append(starship)
             except:
                 pass
+
+        ## OPCION 1
+
+        # planets = []
+        # for l in range(1, 62):
+        #     try:
+        #         link = "https://swapi.co/api/planets/{}".format(str(l))
+        #         planet = requests.get(link).json()
+        #         if searched.lower() in planet['name'].lower():
+        #             planets.append(starship)
+        #     except:
+        #         pass
+
+        ## OPCION 2
+
+        planets_info = requests.get("https://swapi.co/api/planets/").json()['results']
         planets = []
-        for l in range(1, 62):
+        count_p = 1
+        for l in planets_info:
             try:
-                link = "https://swapi.co/api/planets/{}".format(str(l))
-                planet = requests.get(link).json()
-                if searched.lower() in planet['name'].lower():
+                if searched.lower() in l['name'].lower():
+                    link = "https://swapi.co/api/planets/{}".format(str(count_p))
+                    planet = requests.get(link).json()
                     planets.append(starship)
             except:
                 pass
-
+            count_f += 1
 
     return render(request, 'search.html', {"searched": searched, "films": films, "characters": characters,
                 "starships": starships, "planets": planets})
