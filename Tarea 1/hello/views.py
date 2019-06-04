@@ -17,7 +17,7 @@ def tarea1(request):
     for movie in data:
         del movie['vehicles']
         del movie['species']
-    return render(request, "tarea1.html", {"data": data})
+    return render(request, "tarea2.html", {"data": data})
 
 def film(request):
     if request.method=='GET':
